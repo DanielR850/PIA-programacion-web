@@ -77,6 +77,13 @@ body {
     border-color: white;
 }
 
+.container {
+    display: flex;              
+    justify-content: center;    
+    gap: 20px;                  
+    margin: 20px;               
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
