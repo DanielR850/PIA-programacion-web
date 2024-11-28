@@ -45,7 +45,7 @@ body {
 #back-button {
     padding: 10px 300px;
     font-size: 18px;
-    background-color: white;
+    background-color: lightgoldenrodyellow;
     color: black;
     border: 2px solid white;
     border-radius: 20px;
@@ -77,6 +77,12 @@ body {
     border-color: white;
 }
 
+.container {
+    display: flex;         
+    justify-content: center;   
+    margin: 20px;              
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -91,6 +97,7 @@ body {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    width: 200px;
 }
 
 .dropdown-content {
@@ -219,7 +226,7 @@ hr {
     background-color: black;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1100; 
-    padding: 45px; 
+    padding: 25px; 
     box-sizing: border-box;
     max-height: 80vh; 
     overflow-y: auto; 
