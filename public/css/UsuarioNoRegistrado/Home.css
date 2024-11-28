@@ -45,7 +45,7 @@ body {
 #back-button {
     padding: 10px 300px;
     font-size: 18px;
-    background-color: lightgoldenrodyellow;
+    background-color: white;
     color: black;
     border: 2px solid white;
     border-radius: 20px;
@@ -77,16 +77,10 @@ body {
     border-color: white;
 }
 
-.container {
-    display: flex;         
-    justify-content: center;   
-    margin: 20px;              
-}
-
 .dropdown {
     position: relative;
     display: inline-block;
-    margin: 50px 80px;
+    margin: 50px 40px;
 }
 
 .dropbtn {
@@ -97,7 +91,6 @@ body {
     font-size: 16px;
     border: none;
     cursor: pointer;
-    width: 200px;
 }
 
 .dropdown-content {
@@ -226,7 +219,7 @@ hr {
     background-color: black;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1100; 
-    padding: 25px; 
+    padding: 45px; 
     box-sizing: border-box;
     max-height: 80vh; 
     overflow-y: auto; 
@@ -264,4 +257,52 @@ hr {
 .info-section:hover {
     background-color: lightgoldenrodyellow;
     border-color: lightgoldenrodyellow;
+}
+
+/* Dispositivos pequeños */
+@media (max-width: 576px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .login-button {
+        margin-top: 10px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .dropdown {
+        margin: 20px 10px;
+    }
+
+    .custom-carousel-container {
+        height: auto;
+    }
+}
+
+/* Tablets y pantallas medianas */
+@media (min-width: 576px) and (max-width: 768px) {
+    .custom-carousel-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .info-section img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Pantallas grandes */
+@media (min-width: 992px) {
+    .header {
+        justify-content: space-between;
+    }
+
+    .custom-carousel-img {
+        width: 100px;
+        height: 100px;
+    }
 }

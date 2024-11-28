@@ -112,3 +112,83 @@ th {
 td {
     background-color: lightgoldenrodyellow;
 }
+
+/* Pantallas medianas (tablets y dispositivos similares) */
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap; /* Permite que los elementos del header se reorganicen en múltiples filas */
+        height: auto;
+    }
+
+    .header img {
+        width: 100px;
+        height: 100px;
+    }
+
+    #back-button {
+        padding: 10px 30px;
+        font-size: 16px;
+    }
+
+    .historia {
+        margin: 50px;
+    }
+
+    .prueba {
+        width: 45%; /* Ajusta las imágenes para ocupar menos espacio horizontal */
+        margin: 10px 5px;
+    }
+
+    table {
+        width: 90%;
+    }
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 480px) {
+    .header {
+        justify-content: center;
+        text-align: center;
+        height: auto;
+        padding: 10px;
+    }
+
+    .header img {
+        width: 80px;
+        height: 80px;
+    }
+
+    #back-button {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    .login-button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .historia {
+        margin: 20px;
+    }
+
+    .container {
+        margin: 20px 10px;
+        flex-direction: column; /* Cambia las imágenes a disposición vertical */
+        align-items: center;
+    }
+
+    .prueba {
+        width: 80%; /* Las imágenes ocuparán casi todo el ancho disponible */
+        margin: 10px 0;
+    }
+
+    table {
+        width: 100%;
+        font-size: 12px; /* Ajusta el tamaño del texto para tablas */
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}
