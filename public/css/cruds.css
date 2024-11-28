@@ -1,0 +1,193 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAD2;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #FAFAD2;
+    height: 150px;
+}
+
+
+.header img {
+    margin-left: 0;
+}
+
+#editor {
+    padding: 10px 30px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: 2px solid white;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+}
+
+#editor:hover {
+    background-color: lightgoldenrodyellow;
+    border-color: lightgoldenrodyellow;
+}
+
+.login-button {
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 20px;
+    border: 2px solid white;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: lightgoldenrodyellow;
+    border-color: lightgoldenrodyellow;
+}
+
+hr {
+    border: none;
+    height: 10px;
+    background-color: red;
+    margin: 0;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    padding: 20px 0;
+    position: absolute;
+    top: 160px;
+    left: 0;
+    height: calc(100% - 160px);
+    background-color: #FAFAD2;
+}
+
+/* Menu buttons */
+.main-button {
+    width: 90%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #FFC851;
+    text-align: left;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.main-button:hover {
+    background-color: #FFAD5B;
+}
+
+.submenu .sub-button {
+    padding: 10px;
+    margin: 5px 0 5px 15px;
+    width: 90%;
+    background-color: #F3E0CF;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.submenu .sub-button:hover {
+    background-color: #FFA860;
+}
+
+/* Info Box */
+.info-box {
+    position: absolute;
+    top: 205px;
+    left: 55%;
+    transform: translateX(-47%);
+    width: 77%;
+    height: calc(83% - 20px);
+    border: 5px solid red;
+    background-color: #FAFAD2;
+    padding: 15px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+}
+
+.info-box.active {
+    display: block; /* Show when active */
+}
+
+/* Table inside info box */
+.event-container {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+th {
+    background-color: #333;
+}
+
+td {
+    background-color: #222;
+}
+
+.modify-button {
+    background-color: #4C9AFF;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.delete-button {
+    background-color: #FF4D4D;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+#agregar_cuenta {
+    background-color: lightgreen;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Maintain uniform button sizes in the sidebar */
+.sidebar .main-button, .sidebar .sub-button {
+    box-sizing: border-box;
+    width: 90%;
+}
+
+/* Space between sidebar and header */
+.sidebar {
+    margin-top: 20px;
+}
+
+/* Space between info-box and header */
+.info-box {
+    margin-top: 20px;
+}
+
+
+
