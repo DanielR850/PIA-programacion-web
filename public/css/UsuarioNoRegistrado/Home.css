@@ -77,10 +77,17 @@ body {
     border-color: white;
 }
 
+.container {
+    display: flex;              
+    justify-content: center;    
+    gap: 20px;                  
+    margin: 20px;               
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
-    margin: 50px 80px;
+    margin: 50px 40px;
 }
 
 .dropbtn {
@@ -257,4 +264,52 @@ hr {
 .info-section:hover {
     background-color: lightgoldenrodyellow;
     border-color: lightgoldenrodyellow;
+}
+
+/* Dispositivos pequeños */
+@media (max-width: 576px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .login-button {
+        margin-top: 10px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .dropdown {
+        margin: 20px 10px;
+    }
+
+    .custom-carousel-container {
+        height: auto;
+    }
+}
+
+/* Tablets y pantallas medianas */
+@media (min-width: 576px) and (max-width: 768px) {
+    .custom-carousel-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .info-section img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Pantallas grandes */
+@media (min-width: 992px) {
+    .header {
+        justify-content: space-between;
+    }
+
+    .custom-carousel-img {
+        width: 100px;
+        height: 100px;
+    }
 }
