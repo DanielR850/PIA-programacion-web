@@ -4,25 +4,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dropdownButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
-            // Evita que el evento se propague
+            // Evita que el clic se propague al documento (evitar que se cierre el menú cuando se hace clic en el botón)
             event.stopPropagation();
 
-            // Oculta todos los menús desplegables antes de mostrar el actual
-            const allDropdowns = document.querySelectorAll(".dropdown-content");
-            allDropdowns.forEach((dropdown) => {
-                if (dropdown !== button.nextElementSibling) {
-                    dropdown.style.display = "none";
-                }
-            });
+            // Obtén el menú desplegable asociado
+            const dropdownContent = button.nextElementSibling;
 
             // Alterna la visibilidad del menú correspondiente
-            const dropdownContent = button.nextElementSibling;
-            dropdownContent.style.display =
-                dropdownContent.style.display === "block" ? "none" : "block";
+            const isVisible = dropdownContent.style.display === "block";
+            if (isVisible) {
+                dropdownContent.style.display = "none"; // Si está visible, se oculta
+            } else {
+                // Oculta todos los demás menús antes de mostrar el actual
+                const allDropdowns = document.querySelectorAll(".dropdown-content");
+                allDropdowns.forEach((dropdown) => {
+                    dropdown.style.display = "none";
+                });
+
+                // Muestra el menú actual
+                dropdownContent.style.display = "block";
+            }
         });
     });
 
-    // Cierra los menús desplegables si se hace clic fuera de ellos
+    // Cierra todos los menús si se hace clic fuera de ellos
     document.addEventListener("click", () => {
         const allDropdowns = document.querySelectorAll(".dropdown-content");
         allDropdowns.forEach((dropdown) => {

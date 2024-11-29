@@ -121,6 +121,10 @@ body {
     display: block;
 }
 
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
 .custom-carousel-container {
     background-color: #f8f9fa;
     padding: 10px 0;
