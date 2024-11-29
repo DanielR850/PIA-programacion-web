@@ -128,7 +128,7 @@ hr {
     background-color: red;
     width: 100%;
     position: absolute; 
-    transform: translate(-20px, 125px);
+    transform: translate(-20px, 80px);
     z-index: 1000; 
 }
 
@@ -226,7 +226,7 @@ hr {
     background-color: black;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1100; 
-    padding: 45px; 
+    padding: 25px; 
     box-sizing: border-box;
     max-height: 80vh; 
     overflow-y: auto; 

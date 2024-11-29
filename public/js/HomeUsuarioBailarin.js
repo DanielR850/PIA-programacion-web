@@ -34,5 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
             dropdown.style.display = "none";
         });
     });
+
+    const backButton = document.getElementById('back-button');
+    if (backButton) {
+      backButton.addEventListener('click', function () {
+        location.href = 'Pantalla-Home-De-Bailarines.html';
+      });
+    }
 });
 
