@@ -15,7 +15,6 @@ body {
     height: 150px;
 }
 
-
 .header img {
     margin-left: 0;
 }
@@ -63,11 +62,12 @@ hr {
 .sidebar {
     width: 250px;
     padding: 20px 0;
-    position: absolute;
-    top: 160px;
+    position: relative;
+    top: 16px;
     left: 0;
     height: calc(100% - 160px);
     background-color: #FAFAD2;
+    overflow-y: auto;
 }
 
 /* Menu buttons */
@@ -120,13 +120,13 @@ hr {
     display: block; /* Show when active */
 }
 
-/* Table inside info box */
+/* Tabla dentro de la caja */
 .event-container {
-    background-color: black;
-    color: white;
+    background-color: white;
     border-radius: 10px;
     padding: 20px;
     margin-top: 20px;
+    border: 2px solid #ddd;
 }
 
 table {
@@ -137,15 +137,15 @@ table {
 th, td {
     padding: 10px;
     text-align: center;
-    border: 1px solid #fff;
+    border: 1px solid #ddd;
 }
 
 th {
-    background-color: #333;
+    background-color: #f4f4f4;
 }
 
 td {
-    background-color: #222;
+    background-color: #fff;
 }
 
 .modify-button {
@@ -154,6 +154,7 @@ td {
     border-radius: 5px;
     padding: 5px 10px;
     text-decoration: none;
+    margin: 0 5px;
 }
 
 .delete-button {
@@ -164,6 +165,7 @@ td {
     text-decoration: none;
 }
 
+/* Botón agregar cuenta */
 #agregar_cuenta {
     background-color: lightgreen;
     color: white;
@@ -173,21 +175,85 @@ td {
     display: inline-block;
 }
 
-/* Maintain uniform button sizes in the sidebar */
-.sidebar .main-button, .sidebar .sub-button {
-    box-sizing: border-box;
-    width: 90%;
+/* Formulario */
+#history-form {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Space between sidebar and header */
-.sidebar {
+#history-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#history-form input, #history-form textarea, #history-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+#history-form input[type="file"] {
+    border: none;
+}
+
+/* Botón del formulario */
+#history-form button {
+    background-color: #4C9AFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+#history-form button:hover {
+    background-color: #357ABD;
+}
+
+/* Tabla de datos */
+#history-table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
 }
 
-/* Space between info-box and header */
-.info-box {
-    margin-top: 20px;
+#history-table th, #history-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
 }
 
+#history-table th {
+    background-color: #f4f4f4;
+    text-align: center;
+}
 
+#history-table td img {
+    max-width: 100px;
+    border-radius: 5px;
+}
+/* Imagen en la tabla */
+#history-table img {
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+#edit-modal {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}

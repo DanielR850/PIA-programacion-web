@@ -68,45 +68,48 @@
             <button class="main-button sub-button" data-target="info-reporte">Reporte</button>
         </nav>
 
-        <!-- Contenedor principal para mostrar la información -->
-        <div id="info-historia" class="info-box">
-            <h2>Historia</h2>
-            <div id="form-container">
-                <form id="history-form">
-                    <label for="title">Título:</label>
-                    <input type="text" id="title" name="title" placeholder="Escribe el título" required />
+<!-- Contenedor principal para mostrar la información -->
+<div id="info-historia" class="info-box">
+    <h2>Historia</h2>
+    <div id="form-container">
+        <form id="history-form" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" placeholder="Escribe el título" required />
+
+            <label for="content">Contenido:</label>
+            <textarea id="content" name="content" placeholder="Escribe el contenido" required></textarea>
+
+            <label for="alt-text">Texto Alternativo:</label>
+            <input type="text" id="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+
+            <label for="image">Imagen:</label>
+            <input type="file" id="image" name="image" accept="image/*" />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <div class="event-container">
+        <table id="history-table">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Contenido</th>
+                    <th>Imagen</th>
+                    <th>Texto Alternativo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenarán los datos dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
         
-                    <label for="content">Contenido:</label>
-                    <textarea id="content" name="content" placeholder="Escribe el contenido" required></textarea>
         
-                    <label for="alt-text">Texto Alternativo:</label>
-                    <input type="text" id="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
-        
-                    <label for="order">Orden:</label>
-                    <input type="number" id="order" name="order" placeholder="Especifica el orden" required />
-        
-                    <button type="submit" class="add-button">Agregar</button>
-                </form>
-            </div>
-        
-            <div class="event-container">
-                <table id="history-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Contenido</th>
-                            <th>Texto Alternativo</th>
-                            <th>Orden</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Aquí se llenarán los datos dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
         
     </main>
 
