@@ -1,3 +1,4 @@
+/* Configuración general */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,46 +6,47 @@ body {
     background-color: lightgoldenrodyellow;
 }
 
+/* Estilos del header */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px; 
+    padding: 0 20px;
     width: 100%;
     background-color: lightgoldenrodyellow;
     box-sizing: border-box;
-    height: 150px; 
+    height: 150px;
     position: relative;
 }
 
 .header img {
-    margin-left: 0; 
-    width: 150px; 
-    height: 150px; 
+    margin-left: 0;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    object-fit: cover; 
+    object-fit: cover;
 }
 
-.volver-container {
+.search-container {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
 
 #back-button {
-    padding: 10px 300px; 
-    font-size: 18px; 
+    padding: 10px 300px;
+    font-size: 18px;
     background-color: white;
     color: black;
     border: 2px solid white;
     border-radius: 20px;
     cursor: pointer;
-    text-decoration: none; 
+    text-decoration: none;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 #back-button:hover {
-    background-color: lightgoldenrodyellow; 
+    background-color: lightgoldenrodyellow;
     border-color: lightgoldenrodyellow;
 }
 
@@ -53,11 +55,11 @@ body {
     background-color: white;
     color: black;
     font-size: 16px;
-    text-decoration: none; 
+    text-decoration: none;
     border-radius: 20px;
     border: 2px solid white;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    margin-right: 0; 
+    margin-right: 0;
     display: inline-block;
 }
 
@@ -66,6 +68,7 @@ body {
     border-color: white;
 }
 
+/* Línea roja */
 hr {
     border: none;
     height: 10px;
@@ -74,49 +77,64 @@ hr {
     margin-top: 0;
 }
 
-.historia {
-    margin: 70px; 
-    text-align: justify; 
+/* Título principal */
+.page-title {
+    text-align: center;
+    margin: 40px 20px;
+    font-size: 36px;
+    color: #333;
+    font-weight: bold;
 }
 
-.container {
-    display: flex; 
-    justify-content: space-between; 
-    margin: 100px; 
+/* Contenedor principal */
+.content-container {
+    margin: 50px auto;
+    max-width: 1200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
-.prueba {
-    width: 30%; 
-    height: auto; 
-    margin: 0 30px; 
+/* Cada bloque de contenido */
+.content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #fffbea;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-table {
-    width: 80%; 
-    margin: 0 auto; 
-    border-collapse: collapse;
+/* Título del bloque */
+.content-block h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-th, td {
-    padding: 15px;
-    border: 1px solid #333;
-    text-align: left;
-    width: 20%; 
+/* Texto del bloque */
+.content-block p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: justify;
 }
 
-th {
-    background-color: red;
-    color: white;
+/* Imagen del bloque */
+.content-block img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-td {
-    background-color: lightgoldenrodyellow;
-}
-
-/* Pantallas medianas (tablets y dispositivos similares) */
+/* Ajustes responsivos */
 @media (max-width: 768px) {
     .header {
-        flex-wrap: wrap; /* Permite que los elementos del header se reorganicen en múltiples filas */
+        flex-wrap: wrap;
         height: auto;
     }
 
@@ -130,17 +148,21 @@ td {
         font-size: 16px;
     }
 
-    .historia {
-        margin: 50px;
+    .page-title {
+        font-size: 28px;
+        margin: 30px 10px;
     }
 
-    .prueba {
-        width: 45%; /* Ajusta las imágenes para ocupar menos espacio horizontal */
-        margin: 10px 5px;
+    .content-block {
+        padding: 15px;
     }
 
-    table {
-        width: 90%;
+    .content-block h2 {
+        font-size: 20px;
+    }
+
+    .content-block p {
+        font-size: 14px;
     }
 }
 
@@ -168,27 +190,25 @@ td {
         padding: 8px 15px;
     }
 
-    .historia {
-        margin: 20px;
-    }
-
-    .container {
+    .page-title {
+        font-size: 24px;
         margin: 20px 10px;
-        flex-direction: column; /* Cambia las imágenes a disposición vertical */
-        align-items: center;
     }
 
-    .prueba {
-        width: 80%; /* Las imágenes ocuparán casi todo el ancho disponible */
-        margin: 10px 0;
-    }
-
-    table {
-        width: 100%;
-        font-size: 12px; /* Ajusta el tamaño del texto para tablas */
-    }
-
-    th, td {
+    .content-container {
         padding: 10px;
+        gap: 20px;
+    }
+
+    .content-block {
+        padding: 10px;
+    }
+
+    .content-block h2 {
+        font-size: 18px;
+    }
+
+    .content-block p {
+        font-size: 12px;
     }
 }

@@ -12,7 +12,7 @@
         <div class="search-container">
             <button id="logout-button" class="logout-button">Cerrar sesión</button>
         </div>
-        <span id="admin-name" class="login-button">Cargando usuario...</span>
+        <span id="admin-name" class="login-button">Usuario desconocido</span>
     </header>
     
 
@@ -328,6 +328,48 @@
 </div>
 </div>
 
+<div id="habilitar-cuentas" class="info-box">
+    <h2>Habilitar Cuentas</h2>
+    <div class="form-container">
+        <form id="habilitar-cuentas-form">
+            <label for="nombre-completo">Nombre Completo:</label>
+            <input type="text" id="nombre-completo" name="nombre-completo" placeholder="Escribe el nombre completo" required />
+
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Escribe el usuario" required />
+
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" name="contraseña" placeholder="Escribe la contraseña" required />
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" placeholder="Escribe la edad" required />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <!-- Tabla para mostrar usuarios -->
+    <div class="data-container">
+        <h3>Cuentas Habilitadas</h3>
+        <div class="event-container">
+            <table id="habilitar-cuentas-table" class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Edad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -337,5 +379,7 @@
     </main>
 
     <script src="../js/main.js"></script>
+    <script src="../js/login.js"></script>
+
 </body>
 </html>

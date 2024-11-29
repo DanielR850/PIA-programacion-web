@@ -35,31 +35,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     const loadAdminName = () => {
-        // Verificar si el nombre del usuario está en localStorage
-        const adminName = localStorage.getItem('adminName'); // Cambiar si usas otra fuente de datos
+        // Obtener el nombre del usuario desde localStorage
+        const adminName = localStorage.getItem('adminName');
         const adminNameElement = document.getElementById('admin-name');
-
+    
         if (adminName) {
-            adminNameElement.textContent = adminName; // Mostrar el nombre almacenado
+            adminNameElement.textContent = adminName; // Mostrar el nombre del usuario
+            console.log('Nombre del administrador cargado:', adminName); // Depuración
         } else {
-            adminNameElement.textContent = 'Usuario desconocido'; // Mostrar texto por defecto si no hay datos
+            adminNameElement.textContent = 'Usuario desconocido'; // Texto por defecto si no hay nombre
+            console.warn('No se encontró un nombre en localStorage.');
         }
     };
-
-    // Función para manejar el cierre de sesión
-    const handleLogout = () => {
-        // Eliminar el nombre del usuario de la sesión o localStorage
-        localStorage.removeItem('adminName'); // Elimina el nombre del usuario
-        // Redirigir al home
-        window.location.href = '/index.html'; // Cambiar a la ruta de tu página de inicio
-    };
-
-    // Cargar el nombre del usuario al cargar la página
+    
+    // Llamar a la función al cargar la página
     loadAdminName();
-
-    // Manejar el evento de clic en el botón de cerrar sesión
+    
+    
+    // Función para cerrar sesión
+    const handleLogout = () => {
+        localStorage.removeItem('adminName');
+        window.location.href = '/index.html'; // Redirigir a la página de inicio
+    };
+    
     const logoutButton = document.getElementById('logout-button');
     logoutButton.addEventListener('click', handleLogout);
+    
+
     // =======================
     // Función genérica: CRUD para una sección
     // =======================
@@ -156,6 +158,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar la navegación
     initNavigation();
+
+    const initHabilitarCuentas = () => {
+        const form = document.getElementById('habilitar-cuentas-form');
+        const tableBody = document.getElementById('habilitar-cuentas-table').querySelector('tbody');
+
+        // Función para obtener las cuentas existentes
+        const fetchCuentas = async () => {
+            try {
+                const response = await fetch('/api/cuentas');
+                if (!response.ok) throw new Error('Error al obtener cuentas');
+                const cuentas = await response.json();
+
+                // Limpiar tabla
+                tableBody.innerHTML = '';
+
+                // Agregar filas a la tabla
+                cuentas.forEach((cuenta) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${cuenta.NombreCompleto}</td>
+                        <td>${cuenta.Usuario}</td>
+                        <td>${cuenta.Contraseña}</td>
+                        <td>${cuenta.Edad}</td>
+                        <td>
+                            <button class="delete-button" data-id="${cuenta.IdUsuario}">Eliminar</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error al cargar cuentas:', error);
+            }
+        };
+
+        // Función para agregar una cuenta
+        const addCuenta = async (formData) => {
+            try {
+                const response = await fetch('/api/cuentas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+                if (!response.ok) throw new Error('Error al agregar cuenta');
+                alert('Cuenta agregada correctamente');
+                fetchCuentas(); // Recargar las cuentas
+                form.reset(); // Limpiar formulario
+            } catch (error) {
+                console.error('Error al agregar cuenta:', error);
+                alert('Error al agregar cuenta');
+            }
+        };
+
+        // Función para eliminar una cuenta
+        const deleteCuenta = async (id) => {
+            if (!confirm('¿Estás seguro de eliminar esta cuenta?')) return;
+            try {
+                const response = await fetch(`/api/cuentas/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Error al eliminar cuenta');
+                alert('Cuenta eliminada correctamente');
+                fetchCuentas(); // Recargar las cuentas
+            } catch (error) {
+                console.error('Error al eliminar cuenta:', error);
+                alert('Error al eliminar cuenta');
+            }
+        };
+
+        // Manejar envío del formulario
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = {
+                nombreCompleto: document.getElementById('nombre-completo').value.trim(),
+                usuario: document.getElementById('usuario').value.trim(),
+                contraseña: document.getElementById('contraseña').value.trim(),
+                edad: parseInt(document.getElementById('edad').value.trim(), 10),
+            };
+            addCuenta(formData);
+        });
+
+        // Manejar acciones en la tabla
+        tableBody.addEventListener('click', (event) => {
+            if (event.target.classList.contains('delete-button')) {
+                const id = event.target.getAttribute('data-id');
+                deleteCuenta(id);
+            }
+        });
+
+        // Inicializar las cuentas
+        fetchCuentas();
+    };
+
+    // Llamar a la función de inicialización
+    initHabilitarCuentas();
+;
+
 
     // Inicializar CRUD para cada sección
     initCRUD('historia', 'http://localhost:3000/api/seccion', 1); // Historia
