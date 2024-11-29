@@ -42,7 +42,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
             if (tipo === 'Administrador') {
                 window.location.href = '/UsuarioAdministrador/cruds.html';
             } else if (tipo === 'Bailarín') {
-                window.location.href = '/UsuarioBailarin/Home.html';
+                window.location.href = '/UsuarioBailarin/Pantalla-Home-De-Bailarines.html';
             } else {
                 console.warn('Tipo de usuario no reconocido:', tipo);
             }

@@ -1,41 +1,56 @@
+// Importar módulos necesarios
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const connection = require('./connection');
-const multer = require('multer'); // Middleware para manejo de archivos
-const fs = require('fs'); // Para manejar archivos en el servidor
+const cors = require('cors');
+const connection = require('./connection'); // Ajusta la ruta si es necesario
+const multer = require('multer');
+const fs = require('fs');
+
 
 const app = express();
 
-// Middleware para analizar el cuerpo de las solicitudes
+// ========================
+// Configuración global
+// ========================
+// Middlewares
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configurar carpeta 'public' para servir archivos estáticos
+// Configurar carpeta 'public' para archivos estáticos
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Configuración de multer para manejar la carga de imágenes
+// ========================
+// Configuración de Multer
+// ========================
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const uploadDir = path.join(__dirname, '../public/uploads');
         if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true }); // Crear carpeta si no existe
+            fs.mkdirSync(uploadDir, { recursive: true });
         }
-        cb(null, uploadDir); // Carpeta donde se guardarán las imágenes
+        cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
-        const uniqueSuffix = `${Date.now()}-${file.originalname}`; // Nombre único para evitar conflictos
+        const uniqueSuffix = `${Date.now()}-${file.originalname}`;
         cb(null, uniqueSuffix);
     },
 });
 const upload = multer({ storage });
 
-// Ruta principal para cargar la página inicial
+// ========================
+// Rutas principales
+// ========================
+
+// Ruta principal (HTML)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/Index.html'));
 });
 
-// Ruta para manejar el inicio de sesión
+// ========================
+// Rutas para autenticación
+// ========================
 app.post('/login', (req, res) => {
     const { usuario, password, tipo } = req.body;
 
@@ -60,9 +75,9 @@ app.post('/login', (req, res) => {
 });
 
 // ========================
-// RUTAS CRUD PARA HISTORIA
+// Rutas para CRUD genérico (Historia, Misión, etc.)
 // ========================
-// Ruta genérica para obtener registros según idCatalogo
+// Obtener registros por catálogo
 app.get('/api/seccion/:idCatalogo', (req, res) => {
     const { idCatalogo } = req.params;
 
@@ -72,12 +87,12 @@ app.get('/api/seccion/:idCatalogo', (req, res) => {
             console.error('Error al obtener los datos:', err);
             return res.status(500).json({ success: false, message: 'Error al obtener datos.' });
         }
-        console.log('Datos obtenidos de la base de datos:', results);
+        console.log('Datos obtenidos:', results);
         res.json(results);
     });
 });
 
-// Ruta genérica para agregar datos según idCatalogo
+// Agregar registro
 app.post('/api/seccion/:idCatalogo', upload.single('image'), (req, res) => {
     const { idCatalogo } = req.params;
     const { title, content, 'alt-text': altText, idUsuario } = req.body;
@@ -98,7 +113,7 @@ app.post('/api/seccion/:idCatalogo', upload.single('image'), (req, res) => {
     });
 });
 
-// Ruta genérica para eliminar registros según id
+// Eliminar registro
 app.delete('/api/seccion/:id', (req, res) => {
     const { id } = req.params;
 
@@ -128,14 +143,84 @@ app.delete('/api/seccion/:id', (req, res) => {
 });
 
 // ========================
-// NOTAS IMPORTANTES:
+// Rutas para CRUD de Usuarios
 // ========================
-// 1. Valida los datos de entrada antes de procesarlos para evitar errores de formato.
-// 2. Asegúrate de que las rutas coincidan con las que tu frontend está utilizando.
-// 3. Revisa los logs del servidor si algo no funciona como se espera.
 
+app.post('/api/usuarios', async (req, res) => {
+    const { NombreCompleto, Usuario, Contrasena, Edad, IdTipoUsuario } = req.body;
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    if (!NombreCompleto || !Usuario || !Contrasena || !Edad || !IdTipoUsuario) {
+        return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios.' });
+    }
+
+    try {
+        const [result] = await connection.query(
+            'INSERT INTO usuarios (NombreCompleto, Usuario, Contrasena, Edad, IdTipoUsuario) VALUES (?, ?, ?, ?, ?)',
+            [NombreCompleto, Usuario, Contrasena, Edad, IdTipoUsuario]
+        );
+        res.json({ success: true, message: 'Cuenta agregada correctamente.', id: result.insertId }); // Respuesta exitosa
+    } catch (error) {
+        console.error('Error al agregar usuario:', error);
+        res.status(500).json({ success: false, message: 'Error al agregar usuario.' }); // Respuesta con error
+    }
 });
+
+
+
+
+app.get('/api/carrusel', async (req, res) => {
+    try {
+        const [rows] = await connection.query('SELECT * FROM carrusel');
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener imágenes del carrusel:', error);
+        res.status(500).json({ success: false, message: 'Error al obtener imágenes.' });
+    }
+});
+app.post('/api/carrusel', upload.single('imagen'), async (req, res) => {
+    const { textoAlternativo, idUsuario } = req.body;
+    const rutaImagen = req.file ? `/uploads/${req.file.filename}` : null;
+
+    if (!rutaImagen || !idUsuario) {
+        return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios.' });
+    }
+
+    try {
+        await connection.query(
+            'INSERT INTO carrusel (RutaImagen, TextoAlternativo, IdUsuario) VALUES (?, ?, ?)',
+            [rutaImagen, textoAlternativo, idUsuario]
+        );
+        res.json({ success: true, message: 'Imagen agregada al carrusel.' });
+    } catch (error) {
+        console.error('Error al agregar imagen al carrusel:', error);
+        res.status(500).json({ success: false, message: 'Error al agregar imagen.' });
+    }
+});
+app.delete('/api/carrusel/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const [rows] = await connection.query('SELECT RutaImagen FROM carrusel WHERE IdImagen = ?', [id]);
+        const rutaImagen = rows[0]?.RutaImagen;
+
+        if (rutaImagen) {
+            fs.unlinkSync(path.join(__dirname, '../public', rutaImagen)); // Eliminar archivo
+        }
+
+        await connection.query('DELETE FROM carrusel WHERE IdImagen = ?', [id]);
+        res.json({ success: true, message: 'Imagen eliminada del carrusel.' });
+    } catch (error) {
+        console.error('Error al eliminar imagen del carrusel:', error);
+        res.status(500).json({ success: false, message: 'Error al eliminar imagen.' });
+    }
+});
+
+
+// ========================
+// Configuración del servidor
+// ========================
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
+

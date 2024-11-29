@@ -44,7 +44,7 @@
             <div class="menu">
                 <button class="main-button">Cuentas</button>
                 <div class="submenu">
-                    <button class="sub-button" data-target="info-habilitar-cuentas">Habilitar Cuentas</button>
+                    <button class="sub-button" data-target="habilitar-cuentas">Habilitar Cuentas</button>
                     <button class="sub-button" data-target="info-registro-cuentas">Registro de Cuentas</button>
                 </div>
             </div>
@@ -332,44 +332,37 @@
     <h2>Habilitar Cuentas</h2>
     <div class="form-container">
         <form id="habilitar-cuentas-form">
-            <label for="nombre-completo">Nombre Completo:</label>
-            <input type="text" id="nombre-completo" name="nombre-completo" placeholder="Escribe el nombre completo" required />
-
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Escribe el usuario" required />
-
-            <label for="contraseña">Contraseña:</label>
-            <input type="password" id="contraseña" name="contraseña" placeholder="Escribe la contraseña" required />
-
-            <label for="edad">Edad:</label>
-            <input type="number" id="edad" name="edad" placeholder="Escribe la edad" required />
-
-            <button type="submit" class="add-button">Agregar</button>
+            <input type="text" name="NombreCompleto" placeholder="Nombre Completo" />
+            <input type="text" name="Usuario" placeholder="Usuario" />
+            <input type="password" name="Contrasena" placeholder="Contraseña" />
+            <input type="number" name="Edad" placeholder="Edad" />
+            <button type="submit" id="add-button">Agregar</button>
         </form>
+        
+        
+        
+        
     </div>
 
     <!-- Tabla para mostrar usuarios -->
-    <div class="data-container">
-        <h3>Cuentas Habilitadas</h3>
-        <div class="event-container">
-            <table id="habilitar-cuentas-table" class="crud-table">
-                <thead>
-                    <tr>
-                        <th>Nombre Completo</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Edad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se llenarán los datos dinámicamente -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+
 </div>
 
+<div id="info-carrusel" class="info-box">
+    <h2>Gestión del Carrusel</h2>
+    <form id="carrusel-form" enctype="multipart/form-data">
+        <label for="imagen">Selecciona una imagen:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" required />
+        <label for="textoAlternativo">Texto Alternativo:</label>
+        <input type="text" id="textoAlternativo" name="textoAlternativo" placeholder="Texto descriptivo" />
+        <button type="submit">Agregar</button>
+    </form>
+
+    <div class="data-container">
+        <h3>Imágenes del Carrusel</h3>
+        <div id="carrusel-container"></div>
+    </div>
+</div>
 
 
 
@@ -380,6 +373,9 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/login.js"></script>
+    <script src="../js/UsuarioNoRegistrado/carrusel.js"></script>
+
+
 
 </body>
 </html>
