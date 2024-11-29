@@ -1,12 +1,19 @@
 const mysql = require('mysql2');
 
-// Configuración de la conexión a MySQL
-const pool = mysql.createPool({
-  host: 'localhost',       // Cambia si usas un servidor diferente
-  user: 'root',            // Usuario de MySQL
-  password: 'tu_contraseña',  // Contraseña de MySQL
-  database: 'nombre_bd',   // Nombre de la base de datos
-  port: 3306               // Puerto (3306 por defecto)
+const connection = mysql.createConnection({
+  host: 'localhost', // Servidor local
+  user: 'root',      // Usuario raíz
+  password: 'daniel0812', // Coloca tu contraseña correcta aquí
+  database: 'ProgramacionWeb', // Asegúrate de usar el nombre correcto de tu base de datos
+  port: 3306         // Puerto correcto
 });
 
-module.exports = pool.promise(); // Exporta la conexión como una promesa
+connection.connect((err) => {
+  if (err) {
+    console.error('Error al conectar con la base de datos:', err.message);
+  } else {
+    console.log('Conexión exitosa a la base de datos.');
+  }
+});
+
+module.exports = connection;

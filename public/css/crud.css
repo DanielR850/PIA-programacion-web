@@ -225,3 +225,10 @@ td {
     background-color: lightgreen;
     color: white;
 }
+.info-box {
+    overflow-y: auto; /* Para agregar scroll si el contenido es demasiado largo */
+}
+.menu-item {
+    cursor: pointer;
+    font-size: 16px;
+}

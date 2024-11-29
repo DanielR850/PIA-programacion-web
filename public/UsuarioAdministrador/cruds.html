@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación</title>
+    <link rel="stylesheet" href="../css/cruds.css"> <!-- Archivo CSS enlazado -->
+</head>
+<body>
+    <header class="header">
+        <img src="LogoOF.JPG" alt="Logo de la organización" width="150" height="150">
+        <div class="search-container">
+            <span>Editor de información:</span>
+        </div>
+        <span class="login-button">Nombre del usuario-administrador</span>
+    </header>
+
+    <hr>
+
+    <main>
+        <nav class="sidebar">
+            <!-- Submenú: Acerca de Nosotros -->
+            <div class="menu">
+                <button class="main-button">Acerca de Nosotros</button>
+                <div class="submenu">
+                    <button class="sub-button" data-target="info-historia">Historia</button>
+                    <button class="sub-button" data-target="info-mision">Misión</button>
+                    <button class="sub-button" data-target="info-equipo">Nuestro Equipo</button>
+                </div>
+            </div>
+
+            <!-- Submenú: Portafolio -->
+            <div class="menu">
+                <button class="main-button">Portafolio</button>
+                <div class="submenu">
+                    <button class="sub-button" data-target="info-eventos-estado">Eventos del Estado</button>
+                    <button class="sub-button" data-target="info-eventos-nacionales">Eventos Nacionales</button>
+                    <button class="sub-button" data-target="info-eventos-internacionales">Eventos Internacionales</button>
+                    <button class="sub-button" data-target="info-agregar-evento">Agregar Nuevo Evento</button>
+                </div>
+            </div>
+
+            <!-- Submenú: Cuentas -->
+            <div class="menu">
+                <button class="main-button">Cuentas</button>
+                <div class="submenu">
+                    <button class="sub-button" data-target="info-habilitar-cuentas">Habilitar Cuentas</button>
+                    <button class="sub-button" data-target="info-registro-cuentas">Registro de Cuentas</button>
+                </div>
+            </div>
+
+            <!-- Botones sin submenús -->
+            <button class="main-button sub-button" data-target="info-contactanos">Contáctanos</button>
+            <button class="main-button sub-button" data-target="info-carrusel">Carrusel</button>
+            <button class="main-button sub-button" data-target="info-audiciones">Audiciones</button>
+            <button class="main-button sub-button" data-target="info-eventos">Eventos</button>
+            <button class="main-button sub-button" data-target="info-ensayos">Ensayos</button>
+
+            <!-- Submenú: Registro de Asistencias -->
+            <div class="menu">
+                <button class="main-button">Registro de Asistencias</button>
+                <div class="submenu">
+                    <button class="sub-button" data-target="info-asistencia-eventos">Asistencia de Eventos</button>
+                    <button class="sub-button" data-target="info-asistencia-ensayos">Asistencia de Ensayos</button>
+                </div>
+            </div>
+
+            <button class="main-button sub-button" data-target="info-reporte">Reporte</button>
+        </nav>
+
+        <!-- Contenedor principal para mostrar la información -->
+        <div id="info-historia" class="info-box">
+            <h2>Historia</h2>
+            <div id="form-container">
+                <form id="history-form">
+                    <label for="title">Título:</label>
+                    <input type="text" id="title" name="title" placeholder="Escribe el título" required />
+        
+                    <label for="content">Contenido:</label>
+                    <textarea id="content" name="content" placeholder="Escribe el contenido" required></textarea>
+        
+                    <label for="alt-text">Texto Alternativo:</label>
+                    <input type="text" id="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+        
+                    <label for="order">Orden:</label>
+                    <input type="number" id="order" name="order" placeholder="Especifica el orden" required />
+        
+                    <button type="submit" class="add-button">Agregar</button>
+                </form>
+            </div>
+        
+            <div class="event-container">
+                <table id="history-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Contenido</th>
+                            <th>Texto Alternativo</th>
+                            <th>Orden</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se llenarán los datos dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </main>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

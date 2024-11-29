@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: url(IMG/ImgFondo.JPG);
+    background-image: url(../../UsuarioNoRegistrado/img/Img.JPG);
     background-size: 150%;
     background-position: center;
     background-repeat: no-repeat;
@@ -75,6 +75,13 @@ body {
 .login-button:hover {
     background-color: white;
     border-color: white;
+}
+
+.container {
+    display: flex;              
+    justify-content: center;    
+    gap: 20px;                  
+    margin: 20px;               
 }
 
 .dropdown {
