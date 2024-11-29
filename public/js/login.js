@@ -18,6 +18,15 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 
         if (result.success) {
             alert(result.message);
+
+            // Guardar el nombre del usuario en localStorage
+            if (result.user && result.user.NombreCompleto) {
+                localStorage.setItem('adminName', result.user.NombreCompleto);
+            } else {
+                console.warn('El nombre del usuario no está disponible en la respuesta.');
+            }
+
+            // Redirigir según el tipo de usuario
             if (tipo === 'Administrador') {
                 window.location.href = '/UsuarioAdministrador/cruds.html';
             } else if (tipo === 'Bailarín') {

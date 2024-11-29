@@ -1,4 +1,4 @@
-/* General styles */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -17,38 +17,6 @@ body {
 
 .header img {
     margin-left: 0;
-}
-
-#editor {
-    padding: 10px 30px;
-    font-size: 16px;
-    background-color: white;
-    color: black;
-    border: 2px solid white;
-    border-radius: 20px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    text-decoration: none;
-}
-
-#editor:hover {
-    background-color: lightgoldenrodyellow;
-    border-color: lightgoldenrodyellow;
-}
-
-.login-button {
-    padding: 10px 20px;
-    background-color: white;
-    color: black;
-    font-size: 16px;
-    text-decoration: none;
-    border-radius: 20px;
-    border: 2px solid white;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.login-button:hover {
-    background-color: lightgoldenrodyellow;
-    border-color: lightgoldenrodyellow;
 }
 
 hr {
@@ -70,7 +38,6 @@ hr {
     overflow-y: auto;
 }
 
-/* Menu buttons */
 .main-button {
     width: 90%;
     padding: 10px;
@@ -107,47 +74,102 @@ hr {
     left: 55%;
     transform: translateX(-47%);
     width: 77%;
-    height: calc(83% - 20px);
+    min-height: calc(83% - 20px);
     border: 5px solid red;
     background-color: #FAFAD2;
     padding: 15px;
     border-radius: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: none; /* Hidden by default */
+    display: none;
+    height: auto;
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 .info-box.active {
-    display: block; /* Show when active */
+    display: block;
 }
 
-/* Tabla dentro de la caja */
-.event-container {
-    background-color: white;
+/* Formulario */
+.form-container {
+    background-color: #fff;
     border-radius: 10px;
     padding: 20px;
-    margin-top: 20px;
-    border: 2px solid #ddd;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table {
+.form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.form-container input[type="file"] {
+    border: none;
+}
+
+.form-container button {
+    background-color: #4C9AFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+    background-color: #357ABD;
+}
+
+/* Tabla de datos */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.table-container table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th, td {
+.table-container th,
+.table-container td {
     padding: 10px;
     text-align: center;
     border: 1px solid #ddd;
 }
 
-th {
+.table-container th {
     background-color: #f4f4f4;
+    text-align: center;
 }
 
-td {
-    background-color: #fff;
+.table-container td img {
+    max-width: 100px;
+    border-radius: 5px;
 }
 
+.table-container img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Botones en la tabla */
 .modify-button {
     background-color: #4C9AFF;
     color: white;
@@ -165,8 +187,8 @@ td {
     text-decoration: none;
 }
 
-/* Botón agregar cuenta */
-#agregar_cuenta {
+/* Botón agregar */
+.add-button {
     background-color: lightgreen;
     color: white;
     padding: 10px 15px;
@@ -175,77 +197,15 @@ td {
     display: inline-block;
 }
 
-/* Formulario */
-#history-form {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#history-form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-#history-form input, #history-form textarea, #history-form button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-}
-
-#history-form input[type="file"] {
-    border: none;
-}
-
-/* Botón del formulario */
-#history-form button {
-    background-color: #4C9AFF;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s;
-}
-
-#history-form button:hover {
-    background-color: #357ABD;
-}
-
-/* Tabla de datos */
-#history-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-#history-table th, #history-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-#history-table th {
-    background-color: #f4f4f4;
-    text-align: center;
-}
-
-#history-table td img {
-    max-width: 100px;
-    border-radius: 5px;
-}
 /* Imagen en la tabla */
-#history-table img {
+.table-container img {
+    max-width: 100px;
+    height: auto;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#edit-modal {
+/* Modal de edición (si se necesita en el futuro) */
+.edit-modal {
     position: relative;
     top: 50%;
     left: 50%;
@@ -256,4 +216,42 @@ td {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+}
+.data-container {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.data-container h3 {
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+.logout-button {
+    background-color: #FF4D4D;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #E03A3A;
+}
+.login-button {
+    background-color: white; /* Color blanco */
+    color: black; /* Texto negro */
+    padding: 10px 20px; /* Mismos valores de padding */
+    border: 2px solid #ddd; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 14px;
+    cursor: default; /* Cursor normal porque no es interactivo */
+    text-align: center; /* Centrar texto */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
 }

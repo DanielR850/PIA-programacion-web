@@ -62,36 +62,34 @@ app.post('/login', (req, res) => {
 // ========================
 // RUTAS CRUD PARA HISTORIA
 // ========================
+// Ruta genérica para obtener registros según idCatalogo
+app.get('/api/seccion/:idCatalogo', (req, res) => {
+    const { idCatalogo } = req.params;
 
-// Obtener registros de Historia
-app.get('/api/historia', (req, res) => {
-    const query = 'SELECT idSeccion, Titulo, ContenidoTexto, Imagen, TextoAlternativo FROM seccionacercanosotrosyportafolio WHERE idCatalogo = 1';
-    connection.query(query, (err, results) => {
+    const query = 'SELECT * FROM seccionacercanosotrosyportafolio WHERE idCatalogo = ?';
+    connection.query(query, [idCatalogo], (err, results) => {
         if (err) {
             console.error('Error al obtener los datos:', err);
             return res.status(500).json({ success: false, message: 'Error al obtener datos.' });
         }
-        console.log('Datos obtenidos de la base de datos:', results); // Agregar esto para depurar
+        console.log('Datos obtenidos de la base de datos:', results);
         res.json(results);
     });
 });
 
-
-// Agregar nuevo registro de Historia
-app.post('/api/historia', upload.single('image'), (req, res) => {
-    const { titulo, contenidoTexto, textoAlternativo, idUsuario } = req.body;
-    if (!titulo || !contenidoTexto) {
-        return res.status(400).json({ success: false, message: 'Título y contenido son obligatorios.' });
-    }
-
+// Ruta genérica para agregar datos según idCatalogo
+app.post('/api/seccion/:idCatalogo', upload.single('image'), (req, res) => {
+    const { idCatalogo } = req.params;
+    const { title, content, 'alt-text': altText, idUsuario } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
     const query = `
         INSERT INTO seccionacercanosotrosyportafolio 
         (idCatalogo, Titulo, ContenidoTexto, Imagen, TextoAlternativo, IdUsuario, Orden) 
-        SELECT 1, ?, ?, ?, ?, ?, COALESCE(MAX(Orden), 0) + 1 FROM seccionacercanosotrosyportafolio WHERE idCatalogo = 1`;
+        SELECT ?, ?, ?, ?, ?, ?, COALESCE(MAX(Orden), 0) + 1 
+        FROM seccionacercanosotrosyportafolio WHERE idCatalogo = ?`;
 
-    connection.query(query, [titulo, contenidoTexto, imagePath, textoAlternativo, idUsuario], (err) => {
+    connection.query(query, [idCatalogo, title, content, imagePath, altText, idUsuario, idCatalogo], (err, results) => {
         if (err) {
             console.error('Error al insertar el dato:', err);
             return res.status(500).json({ success: false, message: 'Error al insertar el dato.' });
@@ -100,8 +98,8 @@ app.post('/api/historia', upload.single('image'), (req, res) => {
     });
 });
 
-// Eliminar registro de Historia
-app.delete('/api/historia/:id', (req, res) => {
+// Ruta genérica para eliminar registros según id
+app.delete('/api/seccion/:id', (req, res) => {
     const { id } = req.params;
 
     const getImageQuery = 'SELECT Imagen FROM seccionacercanosotrosyportafolio WHERE idSeccion = ?';
@@ -118,8 +116,8 @@ app.delete('/api/historia/:id', (req, res) => {
             });
         }
 
-        const deleteQuery = 'DELETE FROM seccionacercanosotrosyportafolio WHERE idSeccion = ?';
-        connection.query(deleteQuery, [id], (err) => {
+        const query = 'DELETE FROM seccionacercanosotrosyportafolio WHERE idSeccion = ?';
+        connection.query(query, [id], (err, results) => {
             if (err) {
                 console.error('Error al eliminar el dato:', err);
                 return res.status(500).json({ success: false, message: 'Error al eliminar el dato.' });
@@ -129,34 +127,13 @@ app.delete('/api/historia/:id', (req, res) => {
     });
 });
 
-// Actualizar registro de Historia
-app.put('/api/historia/:id', upload.single('image'), (req, res) => {
-    const { id } = req.params;
-    const { titulo, contenidoTexto, textoAlternativo } = req.body;
-
-    if (!titulo || !contenidoTexto) {
-        return res.status(400).json({ success: false, message: 'Título y contenido son obligatorios.' });
-    }
-
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
-
-    const query = `
-        UPDATE seccionacercanosotrosyportafolio 
-        SET Titulo = ?, ContenidoTexto = ?, TextoAlternativo = ?, Imagen = IFNULL(?, Imagen)
-        WHERE idSeccion = ?`;
-
-    connection.query(query, [titulo, contenidoTexto, textoAlternativo, imagePath, id], (err) => {
-        if (err) {
-            console.error('Error al actualizar el dato:', err);
-            return res.status(500).json({ success: false, message: 'Error al actualizar el dato.' });
-        }
-        res.json({ success: true, message: 'Dato actualizado correctamente.' });
-    });
-});
-
 // ========================
-
+// NOTAS IMPORTANTES:
 // ========================
+// 1. Valida los datos de entrada antes de procesarlos para evitar errores de formato.
+// 2. Asegúrate de que las rutas coincidan con las que tu frontend está utilizando.
+// 3. Revisa los logs del servidor si algo no funciona como se espera.
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

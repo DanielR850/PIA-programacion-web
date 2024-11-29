@@ -25,29 +25,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetBox = document.getElementById(targetId);
 
                 // Ocultar todas las cajas primero
-                infoBoxes.forEach(box => box.style.display = 'none');
+                infoBoxes.forEach(box => box.classList.remove('active'));
 
                 // Mostrar solo la caja seleccionada
                 if (targetBox) {
-                    targetBox.style.display = 'block';
+                    targetBox.classList.add('active');
                 }
             });
         });
     };
+    const loadAdminName = () => {
+        // Verificar si el nombre del usuario está en localStorage
+        const adminName = localStorage.getItem('adminName'); // Cambiar si usas otra fuente de datos
+        const adminNameElement = document.getElementById('admin-name');
 
+        if (adminName) {
+            adminNameElement.textContent = adminName; // Mostrar el nombre almacenado
+        } else {
+            adminNameElement.textContent = 'Usuario desconocido'; // Mostrar texto por defecto si no hay datos
+        }
+    };
+
+    // Función para manejar el cierre de sesión
+    const handleLogout = () => {
+        // Eliminar el nombre del usuario de la sesión o localStorage
+        localStorage.removeItem('adminName'); // Elimina el nombre del usuario
+        // Redirigir al home
+        window.location.href = '/index.html'; // Cambiar a la ruta de tu página de inicio
+    };
+
+    // Cargar el nombre del usuario al cargar la página
+    loadAdminName();
+
+    // Manejar el evento de clic en el botón de cerrar sesión
+    const logoutButton = document.getElementById('logout-button');
+    logoutButton.addEventListener('click', handleLogout);
     // =======================
     // Función genérica: CRUD para una sección
     // =======================
-    const initCRUD = (sectionId, apiUrl) => {
-        const form = document.getElementById(`${sectionId}-form`);
-        const tableBody = document.getElementById(`${sectionId}-table`)?.querySelector('tbody');
+    const initCRUD = (sectionId, apiUrl, idCatalogo) => {
+        const form = document.querySelector(`#info-${sectionId} .crud-form`);
+        const tableBody = document.querySelector(`#info-${sectionId} .crud-table tbody`);
 
         // Obtener registros
         const fetchData = async () => {
             try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                renderTable(data);
+                const response = await fetch(`${apiUrl}/${idCatalogo}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    renderTable(data);
+                } else {
+                    console.error(`Error al obtener los datos de ${sectionId}:`, response.statusText);
+                }
             } catch (error) {
                 console.error(`Error al obtener los datos de ${sectionId}:`, error);
             }
@@ -55,11 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Renderizar registros en la tabla
         const renderTable = (data) => {
-            if (!tableBody) return;
-        
             tableBody.innerHTML = ''; // Limpiar la tabla
             data.forEach((item) => {
-                console.log('Datos del registro:', item); // Depurar datos en el frontend
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.Titulo}</td>
@@ -67,31 +93,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td><img src="${item.Imagen}" alt="${item.TextoAlternativo}" width="100" /></td>
                     <td>${item.TextoAlternativo}</td>
                     <td>
-                        <button class="edit-button" data-id="${item.idSeccion}">Editar</button>
-                        <button class="delete-button" data-id="${item.idSeccion}">Eliminar</button>
+                        <button class="delete-button" data-id="${item.IdSeccion}">Eliminar</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
             });
         };
-        
 
-        // Agregar nuevo registro
+        // Agregar registro
         const addData = async (formData) => {
             try {
-                const response = await fetch(apiUrl, {
+                const response = await fetch(`${apiUrl}/${idCatalogo}`, {
                     method: 'POST',
                     body: formData,
                 });
                 if (response.ok) {
-                    alert(`${sectionId} agregado correctamente`);
+                    alert('Registro agregado correctamente.');
                     fetchData();
                     form.reset();
                 } else {
-                    alert(`Error al agregar ${sectionId}`);
+                    alert('Error al agregar el registro.');
                 }
             } catch (error) {
-                console.error(`Error al agregar datos a ${sectionId}:`, error);
+                console.error('Error al agregar el registro:', error);
             }
         };
 
@@ -101,90 +125,43 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
                 if (response.ok) {
-                    alert(`${sectionId} eliminado correctamente`);
+                    alert('Registro eliminado correctamente.');
                     fetchData();
                 } else {
-                    alert(`Error al eliminar ${sectionId}`);
+                    alert('Error al eliminar el registro.');
                 }
             } catch (error) {
-                console.error(`Error al eliminar datos de ${sectionId}:`, error);
+                console.error('Error al eliminar el registro:', error);
             }
         };
 
-        // Editar registro
-        const editData = async (id) => {
-            try {
-                const response = await fetch(`${apiUrl}/${id}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('title').value = data.Titulo;
-                    document.getElementById('content').value = data.ContenidoTexto;
-                    document.getElementById('alt-text').value = data.TextoAlternativo;
-
-                    // Cambiar botón "Agregar" a "Actualizar"
-                    const submitButton = form.querySelector('button[type="submit"]');
-                    submitButton.textContent = 'Actualizar';
-                    submitButton.dataset.id = id;
-                } else {
-                    alert(`Error al cargar ${sectionId} para editar`);
-                }
-            } catch (error) {
-                console.error(`Error al cargar datos para editar en ${sectionId}:`, error);
-            }
-        };
-
-        // Actualizar registro
-        const updateData = async (id, formData) => {
-            try {
-                const response = await fetch(`${apiUrl}/${id}`, {
-                    method: 'PUT',
-                    body: formData,
-                });
-                if (response.ok) {
-                    alert(`${sectionId} actualizado correctamente`);
-                    fetchData();
-                    form.reset();
-                } else {
-                    alert(`Error al actualizar ${sectionId}`);
-                }
-            } catch (error) {
-                console.error(`Error al actualizar datos en ${sectionId}:`, error);
-            }
-        };
-
-        // Manejar el envío del formulario
+        // Manejo del formulario
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const formData = new FormData(form);
-            formData.append('idUsuario', 1); // Cambiar según sea necesario
-
-            const submitButton = form.querySelector('button[type="submit"]');
-            if (submitButton.dataset.id) {
-                updateData(submitButton.dataset.id, formData);
-                delete submitButton.dataset.id;
-                submitButton.textContent = 'Agregar';
-            } else {
-                addData(formData);
-            }
+            formData.append('idUsuario', 1); // Ajustar según sea necesario
+            addData(formData);
         });
 
-        // Manejar acciones de la tabla
+        // Manejo de botones en la tabla
         tableBody.addEventListener('click', (event) => {
             const id = event.target.dataset.id;
             if (event.target.classList.contains('delete-button')) {
                 deleteData(id);
-            } else if (event.target.classList.contains('edit-button')) {
-                editData(id);
             }
         });
 
-        // Inicializar tabla
-        fetchData();
+        fetchData(); // Inicializa los datos al cargar la página
     };
 
-    // =======================
-    // Inicializar funciones
-    // =======================
-    initNavigation(); // Inicializa navegación
-    initCRUD('history', 'http://localhost:3000/api/historia'); // Inicializa CRUD para Historia
+    // Inicializar la navegación
+    initNavigation();
+
+    // Inicializar CRUD para cada sección
+    initCRUD('historia', 'http://localhost:3000/api/seccion', 1); // Historia
+    initCRUD('mision', 'http://localhost:3000/api/seccion', 2); // Misión
+    initCRUD('equipo', 'http://localhost:3000/api/seccion', 3); // Nuestro Equipo
+    initCRUD('eventos-estado', 'http://localhost:3000/api/seccion', 4); // Eventos Estatales
+    initCRUD('eventos-nacionales', 'http://localhost:3000/api/seccion', 5); // Eventos Nacionales
+    initCRUD('eventos-internacionales', 'http://localhost:3000/api/seccion', 6); // Eventos Internacionales
 });

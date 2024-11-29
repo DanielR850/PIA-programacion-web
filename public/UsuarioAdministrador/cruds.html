@@ -10,10 +10,11 @@
     <header class="header">
         <img src="LogoOF.JPG" alt="Logo de la organización" width="150" height="150">
         <div class="search-container">
-            <span>Editor de información:</span>
+            <button id="logout-button" class="logout-button">Cerrar sesión</button>
         </div>
-        <span class="login-button">Nombre del usuario-administrador</span>
+        <span id="admin-name" class="login-button">Cargando usuario...</span>
     </header>
+    
 
     <hr>
 
@@ -36,7 +37,6 @@
                     <button class="sub-button" data-target="info-eventos-estado">Eventos del Estado</button>
                     <button class="sub-button" data-target="info-eventos-nacionales">Eventos Nacionales</button>
                     <button class="sub-button" data-target="info-eventos-internacionales">Eventos Internacionales</button>
-                    <button class="sub-button" data-target="info-agregar-evento">Agregar Nuevo Evento</button>
                 </div>
             </div>
 
@@ -68,44 +68,267 @@
             <button class="main-button sub-button" data-target="info-reporte">Reporte</button>
         </nav>
 
-<!-- Contenedor principal para mostrar la información -->
+<!-- Contenedor genérico reutilizable para cada sección -->
+ 
+<!-- Contenedor principal para Historia -->
 <div id="info-historia" class="info-box">
     <h2>Historia</h2>
-    <div id="form-container">
-        <form id="history-form" enctype="multipart/form-data">
+    <div class="form-container">
+        <form class="crud-form" enctype="multipart/form-data">
             <label for="title">Título:</label>
-            <input type="text" id="title" name="title" placeholder="Escribe el título" required />
+            <input type="text" class="title" name="title" placeholder="Escribe el título" required />
 
             <label for="content">Contenido:</label>
-            <textarea id="content" name="content" placeholder="Escribe el contenido" required></textarea>
+            <textarea class="content" name="content" placeholder="Escribe el contenido" required></textarea>
 
             <label for="alt-text">Texto Alternativo:</label>
-            <input type="text" id="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+            <input type="text" class="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
 
             <label for="image">Imagen:</label>
-            <input type="file" id="image" name="image" accept="image/*" />
+            <input type="file" class="image" name="image" accept="image/*" />
 
             <button type="submit" class="add-button">Agregar</button>
         </form>
     </div>
 
-    <div class="event-container">
-        <table id="history-table">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Contenido</th>
-                    <th>Imagen</th>
-                    <th>Texto Alternativo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se llenarán los datos dinámicamente -->
-            </tbody>
-        </table>
+    <!-- Cuadro para mostrar los datos -->
+    <div class="data-container">
+        <h3>Datos Registrados</h3>
+        <div class="event-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Imagen</th>
+                        <th>Texto Alternativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+</div>
+
+<!-- Contenedor principal para Misión -->
+<div id="info-mision" class="info-box">
+    <h2>Misión</h2>
+    <div class="form-container">
+        <form class="crud-form" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" class="title" name="title" placeholder="Escribe el título" required />
+
+            <label for="content">Contenido:</label>
+            <textarea class="content" name="content" placeholder="Escribe el contenido" required></textarea>
+
+            <label for="alt-text">Texto Alternativo:</label>
+            <input type="text" class="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+
+            <label for="image">Imagen:</label>
+            <input type="file" class="image" name="image" accept="image/*" />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <div class="data-container">
+        <h3>Datos Registrados</h3>
+        <div class="event-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Imagen</th>
+                        <th>Texto Alternativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Reutilización de las mismas clases para las demás secciones -->
+<div id="info-equipo" class="info-box">
+    <h2>Nuestro Equipo</h2>
+    <div class="form-container">
+        <form class="crud-form" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" class="title" name="title" placeholder="Escribe el título" required />
+
+            <label for="content">Contenido:</label>
+            <textarea class="content" name="content" placeholder="Escribe el contenido" required></textarea>
+
+            <label for="alt-text">Texto Alternativo:</label>
+            <input type="text" class="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+
+            <label for="image">Imagen:</label>
+            <input type="file" class="image" name="image" accept="image/*" />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <div class="data-container">
+        <h3>Datos Registrados</h3>
+        <div class="event-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Imagen</th>
+                        <th>Texto Alternativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Contenedor principal para Eventos Estatales -->
+<div id="info-eventos-estado" class="info-box">
+    <h2>Eventos Estatales</h2>
+    <div class="form-container">
+        <form class="crud-form" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" class="title" name="title" placeholder="Escribe el título" required />
+
+            <label for="content">Contenido:</label>
+            <textarea class="content" name="content" placeholder="Escribe el contenido" required></textarea>
+
+            <label for="alt-text">Texto Alternativo:</label>
+            <input type="text" class="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+
+            <label for="image">Imagen:</label>
+            <input type="file" class="image" name="image" accept="image/*" />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <div class="data-container">
+        <h3>Datos Registrados</h3>
+        <div class="event-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Imagen</th>
+                        <th>Texto Alternativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Contenedor principal para Eventos Nacionales -->
+<div id="info-eventos-nacionales" class="info-box">
+    <h2>Eventos Nacionales</h2>
+    <div class="form-container">
+        <form class="crud-form" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" class="title" name="title" placeholder="Escribe el título" required />
+
+            <label for="content">Contenido:</label>
+            <textarea class="content" name="content" placeholder="Escribe el contenido" required></textarea>
+
+            <label for="alt-text">Texto Alternativo:</label>
+            <input type="text" class="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+
+            <label for="image">Imagen:</label>
+            <input type="file" class="image" name="image" accept="image/*" />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <div class="data-container">
+        <h3>Datos Registrados</h3>
+        <div class="event-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Imagen</th>
+                        <th>Texto Alternativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Contenedor principal para Eventos Internacionales -->
+<div id="info-eventos-internacionales" class="info-box">
+    <h2>Eventos Internacionales</h2>
+    <div class="form-container">
+        <form class="crud-form" enctype="multipart/form-data">
+            <label for="title">Título:</label>
+            <input type="text" class="title" name="title" placeholder="Escribe el título" required />
+
+            <label for="content">Contenido:</label>
+            <textarea class="content" name="content" placeholder="Escribe el contenido" required></textarea>
+
+            <label for="alt-text">Texto Alternativo:</label>
+            <input type="text" class="alt-text" name="alt-text" placeholder="Descripción alternativa para la imagen" />
+
+            <label for="image">Imagen:</label>
+            <input type="file" class="image" name="image" accept="image/*" />
+
+            <button type="submit" class="add-button">Agregar</button>
+        </form>
+    </div>
+
+    <div class="data-container">
+        <h3>Datos Registrados</h3>
+        <div class="event-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Imagen</th>
+                        <th>Texto Alternativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí se llenarán los datos dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+
 
 
         
